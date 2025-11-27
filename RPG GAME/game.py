@@ -18,7 +18,7 @@ class Player:
             is_fit = sum(stats.values())
         self.stats = stats
         self.greet()
-        self.re_stats()
+        # self.re_stats()
     def greet(self):
         print(
             f'Хорошо, {self.name}... Судя по всему вы обладаете характеристиками:\n  '
@@ -48,6 +48,10 @@ class Player:
                     self.re_stats()
         elif is_ok == 2:
             self.get_stats(0)
+    def examine(self, enemy):
+        enemy.show_stats()
+    def get_hurt(self, enemy):
+        stats['health'] -= enemy.
 name = 'Chara'
 player = Player(name)
 player.get_stats(0)
@@ -76,3 +80,4 @@ class Creature:
 common_goblin = Creature('Гоблин',(3,6),(3,6),(0,0),(2,5),(2,5))
 mage_goblin = Creature("Гоблин-маг",(3,6),(1,3),(4,7),(2,4),(2,5))
 # mage_goblin.show_stats()
+player.examine(common_goblin)
