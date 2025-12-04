@@ -11,11 +11,11 @@ from random import *
 #         'Перчатки разбойника Второго': "Ну точно Второго."
 #     },
 #     'accessory': ['Клык звёздной лисицы, Кулон лесной дриады, Рог оленя-перевёртыша, Серьга гоблина, Талисман Сияющей слизи,'],
-#     'weapons': ['Орб-слизь, Ножи разбойника, Дубинка стеснительного орка, Плеть разбойника, Рыцарский меч, Посох шамана-гоблина, Клинок. Просто клинок.'],
+#     'weapons': ['Орб-слизь, Ножи разбойника, Дубинка стеснительного орка, Плеть разбойника, Рыцарский меч, Посох шамана-гоблина, Клинок. Просто клинок., Книга заклинаний'],
 #     'poison': ["Розовая слизь, Голубая слизь, Красная слизь, Кровь лесной дриады, Ягодный сок"],
 # }
 wiki = {
-    'Плащ шамана-гоблина': ['Плащ, пропитанный искусством чудодейства гоблинов. Если оно у них есть?',
+    'Плащ шамана-гоблина': ['ПлАщ, пРоПИТанНЫй ИСКусСТвоМ чуДОдейСТвА ГоБЛиНОв! ЕСЛи оНО У нИХ еСТь? ХыХЫ',
                             [["Магия", 4], ['Защита', 3]],
                             'armor'],
     'Диадема лесной дриады': ["Цветочная корона жестокой хранительницы леса.",
@@ -24,7 +24,7 @@ wiki = {
     'Маска стеснительного орка': ["Чёрная маска предводителя орков.",
                                   [['Защита', 7], ['Очки здоровья', 4]],
                                   'armor'],
-    'Накидка из шкуры оленя-перевёртыша': ["От её вида немного жутко.",
+    'Накидка из шкуры оленя-перевёртыша': ["От её вида мне немного жутко...",
                                            [['Сила', 5], ['Очки здоровья', 4], ['Защита', 5]],
                                            'armor'],
     'Пояс разбойника Первого': ["Или Второго?",
@@ -35,22 +35,16 @@ wiki = {
                                     'armor'],
 }
 class Player:
-    def __init__(self, name):
-        self.name = name
+    def __init__(self):
+        self.name = ''
         self.stats = []
         self.equipment = {
             'armor':'Диадема лесной дриады',
-            'accessory': '-',
-            'weapon': '-',
+            'accessory': 'Талисман Сияющей слизи',
+            'weapon': 'Дубинка стеснительного орка',
             'poison': '',
         }
-        # self.inventory = {
-        #     'armor': [],
-        #     'weapons': ["Книга заклинателя"],
-        #     'poisons': ['Ягодный сок'],
-        # }
-        self.inventory = ['Ягодный сок', 'Книга заклинателя', 'Плащ шамана-гоблина']
-        # self.name = 'Chara'
+        self.inventory = ['Ягодный сок', 'Книга заклинаний', 'Плащ шамана-гоблина']
     def get_stats(self, level):
         is_fit = 0
         while is_fit != 25 + level * 5:
@@ -60,30 +54,38 @@ class Player:
                 'Магия': randint(1, 10),
                 'Ловкость': randint(1, 10),
                 'Защита': randint(1, 5),
-                'level': level
+                'level': level,
+                'experience': 0
             }
             is_fit = sum(stats.values())
         self.stats = stats
-        self.greet()
+        # print("     ЭТО ТЫ\n"
+        #       "       |\n"
+        #       "       v\n")
+        # self.greet()
         # self.re_stats()
+        # self.name = input("- КСтаТИ, А МЫ веДЬ С ИМенЕМ еЩЕ не ОПреДЕлиЛиь... КАк НАс ЗоВУт??\n")
+        self.name = "CHARA"
+        print(f"- КрУТо! {self.name}!")
     def show_all(self):
         print(
-            f"⠀⠀⠀⠀⠀⠀⠙⣷⠀⠀⠀⠀⠀⠀  \n"
+            f"⠀⠀⠀⠀⠀⠀⠙⣷⠀⠀⠀⠀⠀⠀      Уровень: {self.stats['level']}\n"
             f"⠀⠀⠀⣤⠿⠿⠿⠿⠿⣤⠀⠀⠀⠀ \n"
             f"⠀⢰⡟⠀⠀⠀⠀⠀⠀⠀⢻⣆⠀⠀    ・Очки здоровья: {self.stats["Очки здоровья"]}\n"
             f"⠸⣤⠀⠀⣿⠀⠀⠀⣿⠀⠀⣤⠇⠀    ・Сила: {self.stats["Сила"]}\n"
             f"⠀ ⠈⠷⢦⠀⠀⠀⡶⠾⠁⠀⠀     ・Магия: {self.stats["Магия"]}\n"
             f"⠀⠀⠀⣰⠛⠋⠉⠙⠛⣆⠀⠀⠀⠀    ・Ловкость: {self.stats["Ловкость"]}\n"
             f"⠀⢠⡟⢰ ⠀⠀⠀ ⡆⢻⡄⠀⠀    ・Защита: {self.stats["Защита"]}\n"
-            f"⠀⠀⠀⢸⠀⢰⠉⡆⠀⡇⠀⠀⠀⠀ \n"
-            f"⠀⠀⠀⠘⠶⠟⠀⠻⠶⠃⠀⠀⠀⠀ \n"
+            f"⠀⠀⠀⢸⠀⢰⠉⡆⠀⡇⠀⠀⠀⠀  \n"
+            f"⠀⠀⠀⠘⠶⠟⠀⠻⠶⠃⠀⠀⠀⠀    ▐ Броня: {self.equipment['armor']}  ▐ Аксессуар: {self.equipment['accessory']}  ▐ Оружие: {self.equipment['weapon']}\n"
         )
-        print(f'Броня: {self.equipment['armor']}\n'
-              f'Аксессуар: {self.equipment['accessory']}\n'
-              f'Оружие: {self.equipment['weapon']}\n')
+        # print(f'▐ Броня: {self.equipment['armor']}  '
+        #       f'▐ Аксессуар: {self.equipment['accessory']}  '
+        #       f'▐ Оружие: {self.equipment['weapon']}\n')
         print('     ✦ Инвентарь ✦')
         for i, item in enumerate(self.inventory):
             print(i + 1, '-', item)
+        print('\n')
     def greet(self):
         print(
             f"⠀⠀⠀⠀⠀⠀⠙⣷⠀⠀⠀⠀⠀⠀  \n"
@@ -96,57 +98,42 @@ class Player:
             f"⠀⠀⠀⢸⠀⢰⠉⡆⠀⡇⠀⠀⠀⠀ \n"
             f"⠀⠀⠀⠘⠶⠟⠀⠻⠶⠃⠀⠀⠀⠀ \n"
         )
-        # print(
-        #     f'Хорошо, {self.name}... Судя по всему вы обладаете характеристиками:\n  '
-        #     f'Очки здоровья: {self.stats["Очки здоровья"]}\n    '
-        #     f'Сила: {self.stats["Сила"]}\n  '
-        #     f'Магия: {self.stats["Магия"]}\n  '
-        #     f'Ловкость: {self.stats["Ловкость"]}\n  '
-        #     f'Защита: {self.stats["Защита"]}\n  '
-        # )
     def re_stats(self):
-        is_ok = int(input("Хотите переназначить? (0 - Нет, 1 - Да, 2 - Рандом)\n"))
-        if is_ok == 1:
-            print("Хорошо... У вас есть 25 очков души. Назначайте их как пожелаете в таком порядке: Очки здоровья, Сила, Магия, Ловкость, Защита.")
+        is_ok = ''
+        while is_ok not in ['0','1','2']:
+            is_ok = input("- кАК ТеБе ХАраКТЕрИсТИКи? ХоЧЕшь ПОмЕняТЬ? (0 - Сойдёт, 1 - Давай поменяем, 2 - Поменяй ты)\n")
+        if is_ok == '1':
+            print("- ЛАдНО! НАзНАЧаЙ в ТАкОМ ПОряДКе: ЗдОроВЬЕ, СИла, МаГИя, ЛОвкоСТь, ЗАЩиТа. СМоТри ТоЛЬКО, В СУмМЕ ДоЛЖно БыТь 25!")
             stats_keys = [i for i in self.stats.keys()]
             soul_points = 25
             while soul_points != 0:
                 try:
-                    planned_stats = input('Введите 5 значений через пробел: ')
+                    planned_stats = input('- ВВодИ 5 ЗнаЧЕнИй. ЧеРЕз ПроБЕЛ!\n')
                     planned_stats = [int(i) for i in planned_stats.split()]
                     for i, key in enumerate(stats_keys[:-1]):
                         self.stats[key] = planned_stats[i]
                         soul_points -= planned_stats[i]
                     if soul_points != 0:
-                        print(f"Осталось очков: {soul_points}. Попробуй еще раз.")
+                        print(f"- ЕЩё ОСТАлОСь {soul_points}! ДАвАЙ ПО НОвОЙ.")
                         soul_points = 25
                     else:
                         self.greet()
                         self.re_stats()
-                except ValueError:
-                    print("Что-то пошло не так... Повтори?")
+                except:
+                    print("- ЧТО-тО тЫ НАмуДрИл... ПоВТоРи?")
                     self.re_stats()
 
-        elif is_ok == 2:
+        elif is_ok == '2':
+            print("\n- ЛАДНа! СмОТри!\n")
             self.get_stats(0)
+        elif is_ok == '0':
+            print('- МНЕ тОЖЕ ЭтИ НрАВятСЯ :D')
     def get_hurt(self, enemy):
         damage = max(0,(enemy.strength-self.stats['defense']))
         self.stats['health'] = max(self.stats['health'] - damage, 0)
         print(f'Существо {enemy.kind} атакует!')
         print(f"Вам нанесли {damage} урона. У вас осталось {self.stats['health']} ОЗ.")
     def show_inventory(self):
-        print(
-            f'⠀⠀⠀⠀⠀⠀⠙⣷⠀⠀⠀⠀⠀⠀  \n'
-            f"⠀⠀⠀⣤⠿⠿⠿⠿⠿⣤⠀⠀⠀⠀ \n"
-            f'⠀⢰⡟⠀⠀⠀⠀⠀⠀⠀⢻⣆⠀⠀     Броня: {self.equipment['armor']}\n'
-            f"⠸⣤⠀⠀⣿⠀⠀⠀⣿⠀⠀⣤⠇⠀ \n"
-            f"⠀ ⠈⠷⢦⠀⠀⠀⡶⠾⠁⠀⠀      Аксессуар: {self.equipment['accessory']}\n"
-            f"⠀⠀⠀⣰⠛⠋⠉⠙⠛⣆⠀⠀⠀⠀ \n"
-            f"⠀⢠⡟⢰ ⠀⠀⠀ ⡆⢻⡄⠀⠀     Оружие: {self.equipment['weapon']}\n"
-            f"⠀⠀⠀⢸⠀⢰⠉⡆⠀⡇⠀⠀⠀⠀ \n"
-            f"⠀⠀⠀⠘⠶⠟⠀⠻⠶⠃⠀⠀⠀⠀ \n"
-        )
-        # print(f"В сумке лежит:", *[i + ',' if self.inventory[-1] != i else i for i in self.inventory])
         print('     ✦ Инвентарь ✦')
         for i, item in enumerate(self.inventory):
             print(i+1,'-', item)
@@ -175,8 +162,8 @@ class Player:
         for i in wiki[item][1]:
             print(f"Характеристика {i[0]} возросла на {i[1]}")
             self.stats[i[0]] += i[1]
-name = 'Chara'
-player = Player(name)
+player = Player()
+print("- ПРиВЕи! ДоБРо ПОжаЛоВать в МИр! КтО я? НУ... КтО-тО? БЕз ПОНЯтиЯ, КтО Я. ЗаТО ЗнАЮ, ЧТО ты - ЧеЛОвЕкоПоДОбнАя сЛИзЬ!\n")
 player.get_stats(0)
 class Creature:
     def __init__(self, kind, health=(3,10), strength=(1,10), magic=(1,10), speed=(1,10), defense=(1,5), stats_base=25, level=0):
@@ -211,9 +198,4 @@ class Creature:
 # deer_skinwalker = Creature("Олень-перевёртыш", (15,20), (8,14), (2,5), (7,10), (3,7), 30)
 # mage_goblin.show_stats()
 # player.examine(common_goblin)
-# player.get_hurt(common_goblin)
-# player.show_inventory()
-# # deer_skinwalker.show_stats()
-# # player.equip('Плащ шамана-гоблина')
-# player.show_inventory()
 player.show_all()
