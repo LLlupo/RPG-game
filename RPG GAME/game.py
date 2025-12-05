@@ -38,6 +38,7 @@ class Player:
     def __init__(self):
         self.name = ''
         self.stats = []
+        self.level, self.experience, self.free_points = -1, 0, 0
         self.equipment = {
             'Броня':'Диадема лесной дриады',
             'Аксессуар': '-',
@@ -54,11 +55,10 @@ class Player:
                 'Магия': randint(1, 10),
                 'Ловкость': randint(1, 10),
                 'Защита': randint(1, 5),
-                'level': 0,
-                'experience': 0
             }
             is_fit = sum(stats.values())
         self.stats = stats
+        self.get_level()
         # print("     ЭТО ТЫ\n"
         #       "       |\n"
         #       "       v\n")
@@ -67,25 +67,35 @@ class Player:
         # self.name = input("- КСтаТИ, А МЫ веДЬ С ИМенЕМ еЩЕ не ОПреДЕлиЛиь... КАк НАс ЗоВУт??\n")
         self.name = "CHARA"
         print(f"- КрУТо! {self.name}!")
+    def get_level(self):
+        self.level += 1
+        self.free_points += self.level * 5
+        match self.level:
+            case 0: self.exp_next = 10
+            case 1: self.exp_next = 50
+            case 2: self.exp_next = 100
+            case 3: self.exp_next = 500
+            case 4: self.exp_next = 1000
+        self.exp_bar = (self.experience // (self.exp_next//10))*'▓' + (10-len((self.experience // (self.exp_next//10))*'▓'))*'░'
     def show_all(self):
-        self.stats['experience'] = 46
-        print(
-            f"⠀⠀⠀⠀⠀⠀⠙⣷⠀⠀⠀⠀⠀⠀      Уровень: {self.stats['level']}\n"
+        print('\n'
+            f"⠀⠀⠀⠀⠀⠀⠙⣷⠀⠀⠀⠀⠀⠀      Уровень: {self.level}\n"
             f"⠀⠀⠀⣤⠿⠿⠿⠿⠿⣤⠀⠀⠀⠀     \n"
-            f"⠀⢰⡟⠀⠀⠀⠀⠀⠀⠀⢻⣆⠀⠀      {(self.stats['experience']//10)*"▓" + ((100 - self.stats['experience'])//10)*"░"} {self.stats['experience']}/{100}\n"
+            f"⠀⢰⡟⠀⠀⠀⠀⠀⠀⠀⢻⣆⠀⠀      {self.exp_bar} {self.experience}/{self.exp_next}\n"
             f"⠸⣤⠀⠀⣿⠀⠀⠀⣿⠀⠀⣤⠇⠀      \n"
-            f"⠀ ⠈⠷⢦⠀⠀⠀⡶⠾⠁⠀⠀     ・Очки здоровья: {self.stats["Очки здоровья"]}\n"
-            f"⠀⠀⠀⣰⠛⠋⠉⠙⠛⣆⠀⠀⠀⠀    ・Сила: {self.stats["Сила"]}\n"
-            f"⠀⢠⡟⢰ ⠀⠀⠀ ⡆⢻⡄⠀⠀    ・Магия: {self.stats["Магия"]}\n"
-            f"⠀⠀⠀⢸⠀⢰⠉⡆⠀⡇⠀⠀⠀⠀    ・Ловкость: {self.stats["Ловкость"]}\n"
-            f"⠀⠀⠀⠘⠶⠟⠀⠻⠶⠃⠀⠀⠀⠀    ・Защита: {self.stats["Защита"]}\n"
+            f"⠀ ⠈⠷⢦⠀⠀⠀⡶⠾⠁⠀⠀     ・Очки здоровья: {self.stats['Очки здоровья']}\n"
+            f"⠀⠀⠀⣰⠛⠋⠉⠙⠛⣆⠀⠀⠀⠀    ・Сила: {self.stats['Сила']}\n"
+            f"⠀⢠⡟⢰ ⠀⠀⠀ ⡆⢻⡄⠀⠀    ・Магия: {self.stats['Магия']}\n"
+            f"⠀⠀⠀⢸⠀⢰⠉⡆⠀⡇⠀⠀⠀⠀    ・Ловкость: {self.stats['Ловкость']}\n"
+            f"⠀⠀⠀⠘⠶⠟⠀⠻⠶⠃⠀⠀⠀⠀    ・Защита: {self.stats['Защита']}\n"
         )
-        print(f'▐ Броня: {self.equipment['Броня']}  '
-              f'▐ Оружие: {self.equipment['Оружие']}  '
-              f'▐ Аксессуар: {self.equipment['Аксессуар']}\n')
+        print(f'▐ Броня: {self.equipment["Броня"]}  '
+              f'▐ Оружие: {self.equipment["Оружие"]}  '
+              f'▐ Аксессуар: {self.equipment["Аксессуар"]}\n')
         print('     ✦ Инвентарь ✦')
         invent = [i for i in self.inventory] + ["Пусто" for j in range(15-len(self.inventory))]
-        for i, item in enumerate(invent):
+        # invent = [str((i + 1)) + ' - ' + item if i%5!=0 else '\n' + str((i + 1)) + ' - ' + item for i, item in enumerate([i for i in self.inventory] + ["Пусто" for j in range(15-len(self.inventory))])]
+        for i, item in enumerate(self.inventory):
             print(i + 1, '-', item)
         print('\n')
     def greet(self):
@@ -117,6 +127,8 @@ class Player:
                         soul_points -= planned_stats[i]
                     if soul_points != 0:
                         print(f"- ЕЩё ОСТАлОСь {soul_points}! ДАвАЙ ПО НОвОЙ.")
+                        if soul_points < 0:
+                            print(f'- Да, В МиНУС ПОшлО!')
                         soul_points = 25
                     else:
                         self.greet()
@@ -140,21 +152,21 @@ class Player:
         for i, item in enumerate(self.inventory):
             print(i+1,'-', item)
     def unequip(self, item):
-        print(f"\nВы сняли: {item}")
+        print(f"\n- Мы СнЯЛиИ: {item}")
         self.equipment[wiki[item][-1]] = '-'
         self.inventory.append(item)
         for i in wiki[item][1]:
-            print(f"Характеристика {i[0]} упала на {i[1]}")
+            print(f"- оЙ! ХАрАКТЕриСТиКа {i[0]} уПАлА на {i[1]} D:")
             self.stats[i[0]] -= i[1]
     def equip(self, item):
         if self.equipment[wiki[item][-1]] == '-':
             self.equipment[wiki[item][-1]] = item
             self.inventory.remove(item)
-            print(f"\nВы надели: {item}")
+            print(f"\n- ОБнОВка!! {item}")
         elif self.equipment[wiki[item][-1]] != '-':
             yesno = 0
             while yesno not in ['1','2']:
-                print(f"Эта категория уже занята: {self.equipment[wiki[item][-1]]}. Хотите сменить? (1 - Да, 2 - Нет)")
+                print(f"- ЭтА каТЕгОРИя уЖЕ зАНЯтА: {self.equipment[wiki[item][-1]]}. ПОмЕнЯеМ? (1 - Да, 2 - Нет)")
                 yesno = input()
             if yesno == '1':
                 self.unequip(self.equipment[wiki[item][-1]])
@@ -162,16 +174,18 @@ class Player:
             else:
                 return print("")
         for i in wiki[item][1]:
-            print(f"Характеристика {i[0]} возросла на {i[1]}")
+            print(f"- ХарАКтеРИстИКА {i[0]} ВоЗРОсЛа нА {i[1]}! :D")
             self.stats[i[0]] += i[1]
 player = Player()
 print("- ПРиВЕи! ДоБРо ПОжаЛоВать в МИр! КтО я? НУ... КтО-тО? БЕз ПОНЯтиЯ, КтО Я. ЗаТО ЗнАЮ, ЧТО ты - ЧеЛОвЕкоПоДОбнАя сЛИзЬ!\n")
 player.get_stats()
 class Creature:
-    def __init__(self, kind, health=(3,10), strength=(1,10), magic=(1,10), speed=(1,10), defense=(1,5), stats_base=25, level=0):
+    def __init__(self, kind, health=(3,10), strength=(1,10), magic=(1,10), speed=(1,10), defense=(1,5), stats_base=25):
+        self.level = randint(player.level-1,player.level+1)
+        self.level = 0
         self.kind = kind
         is_fit = 0
-        while is_fit != stats_base + level * 5:
+        while is_fit != (stats_base + self.level * 5):
             self.health = randint(*health)
             self.strength = randint(*strength)
             self.magic = randint(*magic)
@@ -195,9 +209,9 @@ class Creature:
         self.stats['health'] = max(self.stats['health'] - damage, 0)
 
 
-# common_goblin = Creature('Гоблин',(3,6),(3,6),(0,0),(2,5),(2,5))
-# mage_goblin = Creature("Гоблин-шаман",(3,6),(1,3),(4,7),(2,4),(2,5))
+common_goblin = Creature('Гоблин',(3,6),(3,6),(0,0),(2,5),(2,5),15)
+mage_goblin = Creature("Гоблин-шаман",(3,6),(1,3),(4,7),(2,4),(2,5))
 # deer_skinwalker = Creature("Олень-перевёртыш", (15,20), (8,14), (2,5), (7,10), (3,7), 30)
-# mage_goblin.show_stats()
+mage_goblin.show_stats()
 # player.examine(common_goblin)
 player.show_all()
