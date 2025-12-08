@@ -34,6 +34,11 @@ wiki = {
                                     [['Сила', 5], ['Ловкость', 3], ['Защита', 6]],
                                     'Броня'],
 }
+wiki_monsters = {
+    'Гоблин':[(3,6),(3,6),(0,0),(2,5),(2,5),(2,4),15],
+    "Гоблин-шаман":[(3,6),(1,3),(4,7),(2,4),(2,5),(3,5),20]
+    "Орк":[(5,9),(6,8)]
+}
 class Player:
     def __init__(self):
         self.name = ''
@@ -93,8 +98,6 @@ class Player:
               f'▐ Оружие: {self.equipment["Оружие"]}  '
               f'▐ Аксессуар: {self.equipment["Аксессуар"]}\n')
         print('     ✦ Инвентарь ✦')
-        invent = [i for i in self.inventory] + ["Пусто" for j in range(15-len(self.inventory))]
-        # invent = [str((i + 1)) + ' - ' + item if i%5!=0 else '\n' + str((i + 1)) + ' - ' + item for i, item in enumerate([i for i in self.inventory] + ["Пусто" for j in range(15-len(self.inventory))])]
         for i, item in enumerate(self.inventory):
             print(i + 1, '-', item)
         print('\n')
@@ -180,7 +183,7 @@ player = Player()
 print("- ПРиВЕи! ДоБРо ПОжаЛоВать в МИр! КтО я? НУ... КтО-тО? БЕз ПОНЯтиЯ, КтО Я. ЗаТО ЗнАЮ, ЧТО ты - ЧеЛОвЕкоПоДОбнАя сЛИзЬ!\n")
 player.get_stats()
 class Creature:
-    def __init__(self, kind, health=(3,10), strength=(1,10), magic=(1,10), speed=(1,10), defense=(1,5), stats_base=25):
+    def __init__(self, kind, health=(3,10), strength=(1,10), magic=(1,10), speed=(1,10), defense=(1,5),experience=(3,6), stats_base=25):
         self.level = randint(player.level-1,player.level+1)
         self.level = 0
         self.kind = kind
@@ -209,9 +212,10 @@ class Creature:
         self.stats['health'] = max(self.stats['health'] - damage, 0)
 
 
-common_goblin = Creature('Гоблин',(3,6),(3,6),(0,0),(2,5),(2,5),15)
+common_goblin = Creature('Гоблин',(3,6),(3,6),(0,0),(2,5),(2,5),(3,6),15)
 mage_goblin = Creature("Гоблин-шаман",(3,6),(1,3),(4,7),(2,4),(2,5))
 # deer_skinwalker = Creature("Олень-перевёртыш", (15,20), (8,14), (2,5), (7,10), (3,7), 30)
 mage_goblin.show_stats()
 # player.examine(common_goblin)
 player.show_all()
+
