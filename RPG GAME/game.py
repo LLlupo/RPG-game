@@ -16,28 +16,39 @@ from random import *
 # }
 wiki = {
     'Плащ шамана-гоблина': ['ПлАщ, пРоПИТанНЫй ИСКусСТвоМ чуДОдейСТвА ГоБЛиНОв! ЕСЛи оНО У нИХ еСТь? ХыХЫ',
-                            [["Магия", 4], ['Защита', 3]],
+                            [["Урон", 4], ['Защита', 3]],
                             'Броня'],
     'Диадема лесной дриады': ["Цветочная корона жестокой хранительницы леса.",
-                              [['Магия', 6], ['Ловкость', 5]],
+                              [['Урон', 6], ['Ловкость', 5]],
                               'Броня'],
     'Маска стеснительного орка': ["Чёрная маска предводителя орков.",
                                   [['Защита', 7], ['Очки здоровья', 4]],
                                   'Броня'],
     'Накидка из шкуры оленя-перевёртыша': ["ОТ еЁ вида МНе нЕМНогО жУТкО...",
-                                           [['Сила', 5], ['Очки здоровья', 4], ['Защита', 5]],
+                                           [['Урон', 5], ['Очки здоровья', 4], ['Защита', 5]],
                                            'Броня'],
     'Пояс разбойника Первого': ["ИлИ ВТОРогО? ТЫ ПоМНиШЬ?",
-                                [['Сила', 6], ['Очки здоровья', 2], ['Защита', 6]],
+                                [['Урон', 6], ['Очки здоровья', 2], ['Защита', 6]],
                                 'Броня'],
     'Перчатки разбойника Второго': ["Ну тОЧНо ВтОрОГО.",
-                                    [['Сила', 5], ['Ловкость', 3], ['Защита', 6]],
+                                    [['Урон', 5], ['Ловкость', 3], ['Защита', 6]],
                                     'Броня'],
 }
 wiki_monsters = {
-    'Гоблин':[(3,6),(3,6),(0,0),(2,5),(2,5),(2,4),15],
-    "Гоблин-шаман":[(3,6),(1,3),(4,7),(2,4),(2,5),(3,5),20]
-    "Орк":[(5,9),(6,8)]
+    "Гоблин":[(3,6), (3,6), (2,5), (2,5), (2,4), 15],
+    "Гоблин-шаман":[(3,6), (4,7), (2,4), (2,5), (3,5), 20],
+    "Орк":[(5,9), (6,8), (2,4), (4,6), (13,16), 25],
+    "Стеснительный орк":[(10,16), (7,10), (2,4), (7,12), (22,30), 34],
+    "Голубая слизь":[(5,8), (3,5), (13,18), (2,5), (8,15), 34],
+    "Розовая слизь":[(13,16), (3,5), (2,5), (2,5), (8,15), 30],
+    "Красная слизь":[(3,6), (8,10), (2,5), (2,5), (8,15), 25],
+    "Олень-перевёртыш":[(15,20), (8,14), (7,10), (3,7), (13,20), 35],
+    "Разбойник":[],
+    "Разбойник Первый":[],
+    "Разбойник Второй":[],
+    "Дриада":[],
+    "Шипастая Дриада":[],
+    "???":[],
 }
 class Player:
     def __init__(self):
@@ -56,8 +67,7 @@ class Player:
         while is_fit != 25:
             stats = {
                 'Очки здоровья': randint(3, 10),
-                'Сила': randint(2, 10),
-                'Магия': randint(1, 10),
+                'Урон': randint(2, 10),
                 'Ловкость': randint(1, 10),
                 'Защита': randint(1, 5),
             }
@@ -84,13 +94,13 @@ class Player:
         self.exp_bar = (self.experience // (self.exp_next//10))*'▓' + (10-len((self.experience // (self.exp_next//10))*'▓'))*'░'
     def show_all(self):
         print('\n'
-            f"⠀⠀⠀⠀⠀⠀⠙⣷⠀⠀⠀⠀⠀⠀      Уровень: {self.level}\n"
-            f"⠀⠀⠀⣤⠿⠿⠿⠿⠿⣤⠀⠀⠀⠀     \n"
-            f"⠀⢰⡟⠀⠀⠀⠀⠀⠀⠀⢻⣆⠀⠀      {self.exp_bar} {self.experience}/{self.exp_next}\n"
-            f"⠸⣤⠀⠀⣿⠀⠀⠀⣿⠀⠀⣤⠇⠀      \n"
-            f"⠀ ⠈⠷⢦⠀⠀⠀⡶⠾⠁⠀⠀     ・Очки здоровья: {self.stats['Очки здоровья']}\n"
-            f"⠀⠀⠀⣰⠛⠋⠉⠙⠛⣆⠀⠀⠀⠀    ・Сила: {self.stats['Сила']}\n"
-            f"⠀⢠⡟⢰ ⠀⠀⠀ ⡆⢻⡄⠀⠀    ・Магия: {self.stats['Магия']}\n"
+            f"⠀⠀⠀⠀⠀⠀⠙⣷⠀⠀⠀⠀⠀⠀      \n"
+            f"⠀⠀⠀⣤⠿⠿⠿⠿⠿⣤⠀⠀⠀⠀     Уровень: {self.level}\n"
+            f"⠀⢰⡟⠀⠀⠀⠀⠀⠀⠀⢻⣆⠀⠀      \n"
+            f"⠸⣤⠀⠀⣿⠀⠀⠀⣿⠀⠀⣤⠇⠀     {self.exp_bar} {self.experience}/{self.exp_next}\n"
+            f"⠀ ⠈⠷⢦⠀⠀⠀⡶⠾⠁⠀⠀     \n"
+            f"⠀⠀⠀⣰⠛⠋⠉⠙⠛⣆⠀⠀⠀⠀    ・Очки здоровья: {self.stats['Очки здоровья']}\n"
+            f"⠀⢠⡟⢰ ⠀⠀⠀ ⡆⢻⡄⠀⠀    ・Урон: {self.stats['Урон']}\n"
             f"⠀⠀⠀⢸⠀⢰⠉⡆⠀⡇⠀⠀⠀⠀    ・Ловкость: {self.stats['Ловкость']}\n"
             f"⠀⠀⠀⠘⠶⠟⠀⠻⠶⠃⠀⠀⠀⠀    ・Защита: {self.stats['Защита']}\n"
         )
@@ -146,7 +156,7 @@ class Player:
         elif is_ok == '0':
             print('- МНЕ тОЖЕ ЭтИ НрАВятСЯ :D')
     def get_hurt(self, enemy):
-        damage = max(0,(enemy.strength-self.stats['defense']))
+        damage = max(0,(enemy.damage-self.stats['defense']))
         self.stats['health'] = max(self.stats['health'] - damage, 0)
         print(f'Существо {enemy.kind} атакует!')
         print(f"Вам нанесли {damage} урона. У вас осталось {self.stats['health']} ОЗ.")
@@ -183,39 +193,52 @@ player = Player()
 print("- ПРиВЕи! ДоБРо ПОжаЛоВать в МИр! КтО я? НУ... КтО-тО? БЕз ПОНЯтиЯ, КтО Я. ЗаТО ЗнАЮ, ЧТО ты - ЧеЛОвЕкоПоДОбнАя сЛИзЬ!\n")
 player.get_stats()
 class Creature:
-    def __init__(self, kind, health=(3,10), strength=(1,10), magic=(1,10), speed=(1,10), defense=(1,5),experience=(3,6), stats_base=25):
+    def __init__(self, kind, health=(3,10), damage = (1,10), speed=(1,10), defense=(1,5), experience=(3,6), stats_base=25):
         self.level = randint(player.level-1,player.level+1)
         self.level = 0
         self.kind = kind
         is_fit = 0
         while is_fit != (stats_base + self.level * 5):
             self.health = randint(*health)
-            self.strength = randint(*strength)
-            self.magic = randint(*magic)
+            self.damage = randint(*damage)
             self.speed = randint(*speed)
             self.defense = randint(*defense)
-            is_fit = self.health+self.strength+self.magic+self.speed+self.defense
+            is_fit = self.health+self.damage+self.speed+self.defense
     def show_stats(self):
         print(
             f'Существо {self.kind}\n'
             f'{"-"*20}\n'
             f'Очки здоровья: {self.health}\n'
-            f'Сила: {self.strength}\n'
-            f'Магия: {self.magic}\n'
+            f'Урон: {self.damage}\n'
             f'Ловкость: {self.speed}\n'
             f'Защита: {self.defense}\n'
         )
     def attack(self):
         player.get_hurt(self)
     def get_hurt(self, enemy):
-        damage = max(0,(enemy.strength-self.stats['defense']))
-        self.stats['health'] = max(self.stats['health'] - damage, 0)
+        hurt = max(0,(enemy.damage-self.stats['defense']))
+        self.stats['health'] = max(self.stats['health'] - hurt, 0)
 
+def menu(player):
+    def mon_meet(amount = randint(1,3)):
+        g = '- Ой, НаПАдаЮТ!' if randint(0,1) == 0 else '- МонСтРЫ, моНсТры!'
+        print(g)
+        cur_mon = [choice(list(wiki_monsters.keys())[:-1]) for i in range(amount)]
+        print(cur_mon, amount, '\n')
+        cur_mon = [Creature(i, *wiki_monsters[i]) for i in cur_mon]
+        for i in cur_mon:
+            i.show_stats()
+    mon_meet()
+menu(player)
 
-common_goblin = Creature('Гоблин',(3,6),(3,6),(0,0),(2,5),(2,5),(3,6),15)
-mage_goblin = Creature("Гоблин-шаман",(3,6),(1,3),(4,7),(2,4),(2,5))
-# deer_skinwalker = Creature("Олень-перевёртыш", (15,20), (8,14), (2,5), (7,10), (3,7), 30)
-mage_goblin.show_stats()
+# common_goblin = Creature('Гоблин',(3,6),(3,6),(2,5),(2,5),(3,5),15)
+# mage_goblin = Creature("Гоблин-шаман",(3,6),(4,7),(2,4),(2,5), (4,6),20)
+# magge = Creature("Стеснительный орк", *wiki_monsters['Стеснительный орк'])
+# magge.show_stats()
+# deer_skinwalker = Creature("Олень-перевёртыш", (15,20), (8,14), (7,10), (3,7), 30)
+# mage_goblin.show_stats()
 # player.examine(common_goblin)
 player.show_all()
-
+# for i in wiki_monsters.keys():
+#     cr = Creature(i, *wiki_monsters[i])
+#     cr.show_stats()
