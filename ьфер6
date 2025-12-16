@@ -46,6 +46,15 @@ print([i[0] for i in data if F1(i) or F2(i) or F3(i)])
 print([i[0] for i in data for x in islice(data, i.find(data)) if all(P(i,x))])
 
 
+
+def verrry(data):
+    for i in data:
+        data1 = data
+        data1.remove(i)
+        print(i[0] if all(P(i, x) for x in data1) else '')
+        print(i[0] if all(not P(i, x) for x in data1) else 'h')
+verrry(data)
+
 data = [
     ["Название реки", "Длина", "Годовой сток", "Площадь бассейна", "Истоки", "Куда впадает"],
     ["Амур", 4416, 350, 1855, "Яблоневый хребет", "Татарский пролив"],
