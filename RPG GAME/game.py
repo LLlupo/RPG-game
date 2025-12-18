@@ -82,32 +82,32 @@ wiki_consume = {
             [['Урон', 3], ['Ловкость', 1], ['Защита', 3]], 'Броня'],
 
     'Книга заклинаний': ['- КАкаЯ кНижкАа :З',
-                         [['Урон', 7]], 'Орудие'],
+                         [['Урон', 2], ['Очки здоровья', 3]], 'Орудие'],
     'Орб-слизь': ['- кАк Мы („• ֊ •„)',
-                         [['Урон', 6], ['Защита', 6]], 'Орудие'],
+                         [['Урон', 4], ['Защита', 2], ['Очки здоровья', 6]], 'Орудие'],
     'Ножи разбойника': ['- КАкаЯ кНижкАа :З',
-                         [['Урон', 6], ['Скорость', 4]], 'Орудие'],
+                         [['Урон', 2], ['Скорость', 4], ['Очки здоровья', 4]], 'Орудие'],
     'Плеть разбойника': ['- оНа дЕлаЕт сВиСт-хРясЬ ( = □ = )',
-                         [['Урон', 6]], 'Орудие'],
+                         [['Урон', 5], ['Очки здоровья', 4]], 'Орудие'],
     'Дубинка стеснительного орка': ['- тАкаЯ БолЬшАя, хы. И чЕго Он СТеЕСняЛсЯ?',
-                         [['Урон', 6]], 'Орудие'],
+                         [['Урон', 4], ['Скорость', -3], ['Очки здоровья', 7]], 'Орудие'],
     'Рыцарский меч': ['- БлЕсТЯщИй И ОстРыЙ, КаК ПОлАгаЕтсЯ РыЦАрю ｡✦°⋆',
-                         [['Урон', 6]], 'Орудие'],
+                         [['Урон', 2], ['Очки здоровья', 3]], 'Орудие'],
     'Посох шамана-гоблина': ['- дЕрЕВЯшКа и кРисТАлиК, а СозДаёТ МАгиЮ ( ´ ▿ ` )',
-                        [['Урон', 6]], 'Орудие'],
+                        [['Урон', 3], ['Очки здоровья', 4]], 'Орудие'],
     'Клинок. Просто клинок.': ['- нУ кЛиНОк и КлИНоК',
-                        [['Урон', 6]], 'Орудие'],
+                        [['Урон', 6], ['Очки здоровья', 6]], 'Орудие'],
 
     'Клык звёздной лисицы': ['- ваУ... СиЯет, каК звЁздне нЕбо',
-                               [['Урон', 6]], 'Аксессуар'],
+                               [['Урон', 3], ['Очки здоровья', 6]], 'Аксессуар'],
     'Кулон лесной дриады': ['- ',
-                             [['Урон', 6]], 'Аксессуар'],
+                             [['Урон', 6], ['Очки здоровья', 1]], 'Аксессуар'],
     'Рог оленя-перевёртыша': ['- ОсТРыййй. ',
-                             [['Урон', 6]], 'Аксессуар'],
+                             [['Урон', 6], ['Очки здоровья', 1]], 'Аксессуар'],
     'Серьга гоблина': ['- кАмУшеК бЛестИт, хЕхе',
-                             [['Урон', 6]], 'Аксессуар'],
+                             [['Урон', 6], ['Очки здоровья', 1]], 'Аксессуар'],
     'Талисман Сияющей слизи': ['- он сВетИтся, сМотрИ... иНтерЕСно, КоГдА мЫ тАк смоЖеМ?',
-                             [['Урон', 6]], 'Аксессуар'],
+                             [['Урон', 6], ['Очки здоровья', 1]], 'Аксессуар'],
 }
 def razdva(a,b):
     return a if randint(0,1)==0 else b
@@ -121,7 +121,7 @@ class Player:
             'Аксессуар': '-',
             'Орудие': '-',
         }
-        self.inventory = ['Книга заклинаний', 'Плащ шамана-гоблина']
+        self.inventory = ['Книга заклинаний', 'Плащ шамана-гоблина', 'Ягодный сок']
     def get_stats(self):
         is_fit = 0
         while is_fit != 25:
@@ -147,12 +147,13 @@ class Player:
     def get_level(self):
         self.level += 1
         self.free_points += self.level * 5
-        match self.level:
-            case 0: self.exp_next = 10
-            case 1: self.exp_next = 50
-            case 2: self.exp_next = 100
-            case 3: self.exp_next = 500
-            case 4: self.exp_next = 1000
+        self.exp_next = 10
+        # match self.level:
+        #     case 0: self.exp_next = 10
+        #     case 1: self.exp_next = 50
+        #     case 2: self.exp_next = 100
+        #     case 3: self.exp_next = 500
+        #     case 4: self.exp_next = 1000
         self.get_exp_bar()
     def show_all(self):
         print('\n'
@@ -231,7 +232,7 @@ class Player:
         self.inventory.append(item)
         item_stats = wiki[item][0]
         # print(f"- оЙ! ХАрАКТЕриСТиКа {i[0]} уПАлА на {i[1]} D:" if i[0] < 0 else f"- МиНУс дЕбАфф нА {i[0]} (•▽•) +{i[1]}")
-        print(f"- Мы СнЯЛиИ: {item} (0 ,<)", *[i[0] + ' -' + str(i[1]) for i in item_stats], "\n")
+        print(f"- Мы СнЯЛиИ: {item} (0 ,<)", *[i[0] + ' -' + str(i[1]) for i in item_stats])
         for i in item_stats:
             self.stats[i[0]] -= i[1]
         print('')
@@ -239,7 +240,8 @@ class Player:
         if self.equipment[wiki[item][-1]] == '-':
             self.equipment[wiki[item][-1]] = item
             self.inventory.remove(item)
-            print(f"- ОБнОВка!! {item}")
+            item_stats = wiki[item][0]
+            print(f"- ОБнОВка!! {item} |", *[i[0] + ' +' + str(i[1]) for i in item_stats])
         elif self.equipment[wiki[item][-1]] != '-':
             yesno = ''
             while yesno not in ['1','2']:
@@ -250,7 +252,6 @@ class Player:
                 return self.equip(item)
             else:
                 return print("")
-        print(f"- ХарАКтеРИстИКА {i[0]} ВоЗРОсЛа нА {i[1]}! :D" if i[0] < 0 else f"- оЙ, миНуС нА {i[0]} (•□•) -{i[1]}")
         for i in wiki[item][0]:
             # print(f"- ХарАКтеРИстИКА {i[0]} ВоЗРОсЛа нА {i[1]}! :D" if i[0]<0 else f"- оЙ, миНуС нА {i[0]} (•□•) -{i[1]}")
             self.stats[i[0]] += i[1]
@@ -325,30 +326,36 @@ def menu(player):
         print(razdva("- ВОтаКвОТ\n", "- НУ ДавАЙ поСМОтРиМ\n"))
         player.show_all()
         player_inventory_choice = ''
-        while player_inventory_choice not in ['1', '2', '3', '4']:
+        while player_inventory_choice not in ['1', '2', '3', '4', '5']:
             player_inventory_choice = input("- ЧтО ТеПЕрЬ? (1 - Поглотить, 2 - Надеть, 3 - Ничего, 4 - Снять, 5 - Рассмотреть)\n")
         if player_inventory_choice == '1':
             print("- ЧТо КуШАеМ? :P\n")
-            player.show_inventory(player.inventory)
-            # eat_item = input()
-            # if eat_item in [str(i + 1) for i in range(len(player.inventory))]:
-            #     player.consume(player.inventory[int(eat_item) - 1])
-            #     pause()
+            print('     ✦ Инвентарь ✦')
+            print('0 - Ничего')
+            for i, item in enumerate(player.inventory):
+                eat_item_stats = [f'{i[0]} +{i[1]} ⁝' if i != wiki_consume.get(item)[1][-1] else f'{i[0]} +{i[1]}' for i in wiki_consume.get(item)[1]]
+                print(i + 1, '-', item, '|', *eat_item_stats)
             eat_item = ''
-            while eat_item not in [str(i+1) for i in range(len(player.inventory))]:
+            while eat_item not in ['0'] + [str(i+1) for i in range(len(player.inventory))]:
                 eat_item = input()
-            player.consume(player.inventory[int(eat_item)-1])
-            pause()
+            if eat_item != '0':
+                player.consume(player.inventory[int(eat_item)-1])
+                pause()
             return inventory()
         elif player_inventory_choice == "2":
             print("- ВОт наШ ГАрдЕроБ!! ЧТо НаДЕнЕм? :^\n")
+            print('     ✦ Инвентарь ✦')
             usable_inventory = [i for i in player.inventory if i in wiki.keys()]
-            player.show_inventory(usable_inventory)
+            print('0 - Ничего')
+            for i, item in enumerate(usable_inventory):
+                item_stats = [f'{i[0]} +{i[1]} ⁝' if i != wiki.get(item)[0][-1] else f'{i[0]} +{i[1]}' for i in wiki.get(item)[0]]
+                print(i + 1, '-', item, '|', *item_stats)
             puton_item = ''
-            while puton_item not in [str(i+1) for i in range(len(usable_inventory))]:
+            while puton_item not in ['0'] + [str(i+1) for i in range(len(usable_inventory))]:
                 puton_item = input()
-            player.equip(usable_inventory[int(puton_item)-1])
-            pause()
+            if puton_item != '0':
+                player.equip(usable_inventory[int(puton_item)-1])
+                pause()
             return inventory()
         elif player_inventory_choice == "4":
             print("- ЧтО СниМаЕм? ( ˙▿˙ )")
@@ -360,20 +367,24 @@ def menu(player):
                 puton_item = input()
             player.unequip(player.equipment[usable_inventory[int(puton_item) - 1]])
             pause()
+            return inventory()
         elif player_inventory_choice == "5":
             print("- Я ПОбУдУ ТвОЕй СЛаЙМОпЕдиеЙ!! ЧТо тЫ ХоЧЕшь РаСсмОТрЕтЬ? (* v *)\n")
-            # for item in player.inventory:
-            #     item_stats = [f'| {i[0]} +{i[1]}' for i in wiki.get(item)[1]]
-            #     print(item, *item_stats, wiki.get(item)[0])
             player.show_inventory(player.inventory)
+            print("0 - Ничего")
             examine_item = ''
-            while examine_item not in [str(i + 1) for i in range(len(player.inventory))]:
+            while examine_item not in ['0'] + [str(i + 1) for i in range(len(player.inventory))]:
                 examine_item = input()
+            if examine_item == '0':
+                return inventory()
             examine_item = player.inventory[int(examine_item)-1]
-            item_stats = [f'{i[0]} +{i[1]} ⁝' if i != wiki.get(examine_item)[1][-1] else f'{i[0]} +{i[1]}' for i in wiki.get(examine_item)[1]]
-            eat_item_stats = [f'{i[0]} +{i[1]} ⁝' if i != wiki.get(examine_item)[1][-1] else f'{i[0]} +{i[1]}' for i in wiki.get(examine_item)[1]]
-            print(wiki.get(examine_item)[0])
-            print(examine_item, '| 🍽',  *item_stats, '| ⛊',  *item_stats, '|', 'Тип:', wiki.get(examine_item)[-1])
+            print(wiki_consume.get(examine_item)[0])
+            eat_item_stats = [f'{i[0]} +{i[1]} ⁝' if i != wiki_consume.get(examine_item)[1][-1] else f'{i[0]} +{i[1]}' for i in wiki_consume.get(examine_item)[1]]
+            if wiki.get(examine_item):
+                item_stats = [f'{i[0]} +{i[1]} ⁝' if i != wiki.get(examine_item)[0][-1] else f'{i[0]} +{i[1]}' for i in wiki.get(examine_item)[0]]
+                print(examine_item, '| 🍽',  *eat_item_stats, '| ⛊',  *item_stats, '|', 'Тип:', wiki_consume.get(examine_item)[-1], '\n')
+            else:
+                print(examine_item, '| 🍽', *eat_item_stats, '|', 'Тип:', wiki_consume.get(examine_item)[-1], '\n')
             pause()
             return inventory()
         else:
@@ -400,13 +411,14 @@ def menu(player):
                 player.get_exp_bar()
             cur_mon_code.pop(int(player_attack_choice)-1)
             if att_mon.loot != '':
-                print(razdva(f"- ХАбР-ХАбАбр-ХаБАР1! {att_mon.loot}\n", f"- ХИХИ, СчАЧстьЯ прИвАлИло, СмОтрИ, {att_mon.loot} :DD\n"))
+                print(razdva(f"- ХАбР-ХАбАбр-ХаБАР1! {att_mon.loot}\n", f"- ХИХИ, СмОтрИ, {att_mon.loot} :DD\n"))
                 player.inventory.append(att_mon.loot)
             if not cur_mon_code:
                 print(razdva('- МЫ вСЕХ ПобЕДиЛи!! (^ o ^)\n', '- ПОоОбЕДА!!'))
                 pause()
                 return 0
         choice_menu()
+    print("- КуДА ПоЙдЁм?")
     if randint(1,30) in range(1,29):
         print(razdva('- Ой, НаПАдаЮТ!\n', '- МонСтРЫ, моНсТры!\n'))
         cur_mon = [choice(list(wiki_monsters.keys())[:-1]) for i in range(randint(1,3))]
@@ -417,6 +429,7 @@ def menu(player):
         treasure = choice(list(wiki.keys()))
         print(f'- {treasure}! Всё В ДОм, ВСё в ДОмМ ХыхЫ\n')
         player.inventory.append(treasure)
+        pause()
 
 player.show_all()
 # menu(player)
