@@ -24,9 +24,9 @@ wiki = {
     'Талисман Сияющей слизи': [[['Урон', 6], ['Ловкость', 6], ['Защита', 8]], 'Аксессуар'],
 }
 wiki_monsters = {
-    "Бабочка": [(1,2), (1,1), (13,18), (0,0), (0,1), 17],
+    "Бабочка": [(1,2), (1,1), (13,18), (0,0), (0,5), 17],
     "Гоблин": [(3,6), (3,6), (2,5), (2,5), (2,4), 15,
-            ['Серьга гоблина', 'Ягодный сок', 'Посох шамана-гоблина']],
+            ['Серьга гоблина', 'Ягодный сок']],
     "Гоблин-шаман": [(3,6), (4,7), (2,4), (2,5), (3,5), 20,
             ['Плащ шамана-гоблина', 'Книга заклинаний', 'Ягодный сок']],
     "Орк": [(5,9), (6,8), (2,4), (4,6), (13,16), 25,
@@ -111,25 +111,27 @@ wiki_consume = {
                              [['Урон', 6], ['Очки здоровья', 1]], 'Аксессуар'],
 }
 wiki_location = {
-    'Лес  ෴↟෴ᛉ↟⸙෴↟ᛏ↟෴↟⸙': [["Бабочка", "Гоблин", "Гоблин-шаман", "Орк", "Голубая слизь", "Розовая слизь", "Красная слизь", "Олень-перевёртыш", "Дриада"],
+    'Лес': [["Бабочка", "Гоблин", "Гоблин-шаман", "Орк", "Голубая слизь", "Розовая слизь", "Красная слизь", "Олень-перевёртыш", "Дриада"],
             ['Рог оленя-перевёртыша', 'Серьга гоблина', 'Накидка из шкуры оленя-перевёртыша',
-             'Диадема лесной дриады', 'Ножи разбойника', 'Клинок. Просто клинок.', "Красное яблоко", "Пятнистый гриб"],],
+             'Диадема лесной дриады', 'Ножи разбойника', 'Клинок. Просто клинок.', "Красное яблоко", "Пятнистый гриб"],
+            ['෴ᛏ↟෴↟ᛉ↟', 'ᛏ↟෴↟ᛉ෴⸙']],
 
-    'Чаща  ↟ᛏ෴↟⸙ᛉ ⭑⭑ ᛘ෴↟ᛏ⸙': [["Бабочка", "Дриада", "Шипастая Дриада", "Голубая слизь", "Розовая слизь", "Красная слизь", "Скелет"],
-             ['Рог оленя-перевёртыша', 'Диадема лесной дриады', 'Талисман Сияющей слизи', "Родниковая вода"]],
+    'Чаща': [["Бабочка", "Дриада", "Шипастая Дриада", "Голубая слизь", "Розовая слизь", "Красная слизь", "Скелет"],
+             ['Рог оленя-перевёртыша', 'Диадема лесной дриады', 'Талисман Сияющей слизи', "Родниковая вода"],
+             ['↟ᛏ෴↟⸙ᛉ ⭑⭑ ᛘ','෴↟ᛏ⸙']],
 
-    'Поле  ៶៸៶៸៶៸ʬʬᖗᖘʬʬᖗʬᖘʬ ꔠꔠꔠ': [["Бабочка", "Гоблин", "Гоблин-шаман", "Разбойник", "Голубая слизь", "Розовая слизь", "Красная слизь"],
-             ["Родниковая вода", "Красное яблоко"]],
+    'Поле': [["Бабочка", "Гоблин", "Гоблин-шаман", "Разбойник", "Голубая слизь", "Розовая слизь", "Красная слизь"],
+             ["Родниковая вода", "Красное яблоко"], ['៶៸៶៸៶៸ʬʬᖗᖘʬʬ', 'ᖗʬᖘʬ ꔠꔠꔠ']],
 
-    'Дорога  ☱☲☳☴☵☶☷☱☲☳☴': [["Бабочка", "Разбойник", "Разбойник Первый", "Голубая слизь", "Розовая слизь", "Красная слизь", "Гоблин"],
-               ["Паёк разбойника", "Ягодный сок", "Красное яблоко"]],
+    'Дорога': [["Бабочка", "Разбойник", "Разбойник Первый", "Голубая слизь", "Розовая слизь", "Красная слизь", "Гоблин"],
+               ["Паёк разбойника", "Ягодный сок", "Красное яблоко"], ['☱☲☳☴☵☶', '☷☱☲☳☴']],
 
-    'Пещера  ꒷꒦☸꒷⭑︶ ๋ ࣭  ⭑꒷꒦☸': [["Голубая слизь", "Розовая слизь", "Красная слизь", "Орк", "Стеснительный орк", "Гоблин", "Скелет"],
+    'Пещера': [["Голубая слизь", "Розовая слизь", "Красная слизь", "Орк", "Стеснительный орк", "Гоблин", "Скелет"],
                ['Клинок. Просто клинок.', 'Рыцарский меч', 'Талисман Сияющей слизи', "Пятнистый гриб", 'Накидка из шкуры оленя-перевёртыша',
                 'Книга заклинаний', 'Орб-слизь', 'Ножи разбойника', 'Плеть разбойника', 'Серьга гоблина', "Розовая слизь", "Голубая слизь",
-                "Красная слизь"]],
+                "Красная слизь"], ['꒷꒦☸꒷⭑︶ ๋ ࣭', ' ⭑꒷꒦☸']],
 
-    'Поляна цветов  ❁✿❀❁✿❀': [[], []],
+    'Поляна цветов': [[], [], ['❁✿❀','❁✿❀']],
 }
 def razdva(a,b):
     return a if randint(0,1)==0 else b
@@ -254,10 +256,24 @@ class Player:
               '     ⠈⢳⣇        О Т Д Ы Х . . .         ⠀       ⠘⠷⣭⠾⠃⠀⠀\n\n\n\n\n')
         self.stats['Очки здоровья'] += 10
     def get_hurt(self, enemy):
-        damage = max(0,(enemy.damage-self.stats['Защита']))
+        damage = max(1,(enemy.damage-self.stats['Защита']))
         self.stats['Очки здоровья'] = max(self.stats['Очки здоровья'] - damage, 0)
-        print(f'Существо {enemy.kind} атакует!')
-        print(f"Вам нанесли {damage} урона. У вас осталось {self.stats['Очки здоровья']} ОЗ.")
+        # print(f'{enemy.kind} атАкуЕТ! -{damage} ОЗ. ОсТАлосЬ {self.stats['Очки здоровья']} ОЗ')
+        emotes = ['☆(＃××)','(౦ ‸ ౦)','(･ × ･)','(>_<)','(`︿´)','(・人・)']
+        print(f'- -{damage} ОЗ бАй {enemy.kind} {choice(emotes)} ОсТАлосЬ {self.stats['Очки здоровья']} ОЗ')
+    def die(self):
+        print(razdva('- нет... мы... умираем?\n', '- ой, это... конец?..\n'))
+        print('\n'
+              '          ⠀⠀⠀⠀⠀           ⣠⣤⠀⠀⠀⠀⠀                                    \n'
+              '          ⠐⠙⡆         ⠀⣤⠿⠿⠿⠿⠿⣤⠀⠀⠀⠀   ⣞⠛⠛⣦       ⠐⠙⡆               \n'
+              '          ⠈⢳⣇        ⢠⡟⠀⠀ ⠀⠀⠀⠀⠀⢻⡆⠀⠀   ⠀          ⠈⢳⢸               \n'
+              '                   ⣠⠶⠟ ⠀⢴⣷⠀⢀⣴⣄⠀ ⢰⠋⠂             ⠈⢳⣿⡞⠁             \n'
+              '     ⣴⠛⠛⠛⠷⣄      ⠈⠉⠛⠛⠶⣤⠶⠛⠉⠁ ⠈⢳⢸⡞⠁                                \n'
+              '                                                                     \n'
+              '    ⢰⡎⠂        И Г Р А   О К О Н Ч Е Н А     ⠈⣄          ⣴⠛⠛⣳      \n'
+              '  ⠈⢳⣿⡞⠁                                      ⣤⠿                    \n'
+              '                           ⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠛⠶⠶⣤⣤⠶                      \n'
+              '                          \n')
     def show_inventory(self, inventory):
         print('     ✦ Инвентарь ✦')
         for i, item in enumerate(inventory):
@@ -332,25 +348,35 @@ def menu(player):
     def pause():
         a = input('(Enter для продолжения)\n')
     def location():
-        player_choice = '2'
+        player_choice = ''
         while player_choice not in ['1','2','3']:
             player_choice = input("- ЧтО дЕлАТь БуДЕм? (1 - Исследовать, 2 - Идти, 3 - Открыть инвентарь)\n")
         if player_choice == '1':
-            f = 0
+            j = 0
         elif player_choice == '2':
             print("- и КуДА ПоЙдЁм?\n")
-            ava_loc = list(wiki_location.keys())
-            ava_loc.remove(player.location)
-            locations = sample(ava_loc, k=2)
-            print('0 - Остаться')
+            print('0 - Остаться и исследовать')
             for i, loc in enumerate(locations):
-                print(i+1,'-', loc)
+                print(i+1, '-', wiki_location[loc][2][0], loc, wiki_location[loc][2][1])
+            player_loc_choice = ''
+            while player_loc_choice not in ['1','2','0']:
+                player_loc_choice = input()
+            if player_loc_choice != '0':
+                player.location = locations[int(player_loc_choice)-1]
         elif player_choice == '3':
             inventory()
-    def mon_meet(amount = randint(1,3)):
-        for i in cur_mon_code:
+    def gen_loc():
+        ava_loc = list(wiki_location.keys())
+        ava_loc.remove(player.location)
+        locations = sample(ava_loc, k=2)
+        return locations
+    def gen_mon():
+        cur_mon = [choice(wiki_location[player.location][0]) for i in range(randint(1, 3))]
+        cur_mon = [Creature(i, *wiki_monsters[i]) for i in cur_mon]
+        return cur_mon
+    def mon_meet():
+        for i in cur_mon:
             i.show_stats()
-        choice_menu()
     def choice_menu():
         player_choice = ''
         while player_choice not in ['1','2','3','4','5']:
@@ -359,10 +385,11 @@ def menu(player):
             inventory()
         elif player_choice == '2':
             attack()
+            return 0
         elif player_choice == '3':
             f = 0
         elif player_choice == '4':
-            print(razdva("- БеЖИМ-БЕЖиМ!!\n", "- БЫстРЫе НогИ ВРаГоВ Не БоЯтСЯ!\n"))
+            print(razdva("- БеЖИм-бЕЖиМ!!\n", "- бЫстРЫе НогИ вРаГоВ Не БоЯтСЯ!\n"))
             pause()
             return 0
         elif player_choice == '5':
@@ -435,13 +462,12 @@ def menu(player):
         else:
             return choice_menu()
     def attack():
-        for i, mon in enumerate(cur_mon_code):
+        for i, mon in enumerate(cur_mon):
             print(i + 1, '-', mon.kind)
         player_attack_choice = ''
-        # print('')
         while player_attack_choice not in [str(i+1) for i in range(len(cur_mon))]:
             player_attack_choice = input("- КОго БьЁм?\n")
-        att_mon = cur_mon_code[int(player_attack_choice)-1]
+        att_mon = cur_mon[int(player_attack_choice)-1]
         att_mon.get_hurt(player)
         print(f"- ВПерЁд!! СУщЕствУ {att_mon.kind} нАнЕСеНо {att_mon.hurt} еДинИЦ УрОНа >:D\n" if att_mon.hurt != 1
               else f'- БЛиИИнб, МОнСТр {att_mon.kind} ПоЧтИ нЕ ПОлуЧиЛ УРонА. ВсЕгО еДИниЧКа :((\n')
@@ -454,17 +480,43 @@ def menu(player):
                 player.get_level()
             else:
                 player.get_exp_bar()
-            cur_mon_code.pop(int(player_attack_choice)-1)
+            cur_mon.pop(int(player_attack_choice)-1)
             if att_mon.loot != '':
                 print(razdva(f"- ХабАРр (=`ω´=) {att_mon.loot}\n", f"- ХИХИ, СмОтрИ, {att_mon.loot} :DD\n"))
                 player.inventory.append(att_mon.loot)
-            if not cur_mon_code:
-                print(razdva('- МЫ вСЕХ ПобЕДиЛи!! (^ o ^)\n', '- Вот И вСё!'))
-                pause()
+            if not cur_mon:
+                print(razdva('- МЫ вСЕХ ПобЕДиЛи!! (^ o ^)\n', '- Вот И вСё!\n'))
                 return 0
-        choice_menu()
+            pause()
+        return 0
+    def mon_attack():
+        for i in cur_mon:
+            player.get_hurt(i)
+            if player.stats['Очки здоровья'] == 0:
+                print('')
+                pause()
+                player.die()
+                return 0
+        print('')
+    def battle():
+        if 'Бабочка' not in [i.kind for i in cur_mon]:
+            while player.stats['Очки здоровья'] != 0 and cur_mon:
+                choice_menu()
+                mon_attack()
+        else:
+            while player.stats['Очки здоровья'] != 0 and cur_mon:
+                mon_attack()
+                if player.stats['Очки здоровья'] != 0:
+                    choice_menu()
+
+    # player.rest()
+    # player.die()
+    # pause()
+    locations = gen_loc()
     location()
-    pause()
+    cur_mon = gen_mon()
+    mon_meet()
+    battle()
     # if randint(1,30) in range(1,29):
     #     print(razdva('- Ой, НаПАдаЮТ!\n', '- МонСтРЫ, моНсТры!\n'))
     #     cur_mon = [choice(wiki_location[player.location][0]) for i in range(randint(1, 3))]
@@ -481,4 +533,3 @@ player.show_all()
 # menu(player)
 while player.stats['Очки здоровья'] != 0:
     menu(player)
-
