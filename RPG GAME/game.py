@@ -152,11 +152,11 @@ class Player:
         self.stats = []
         self.level, self.exp, self.free_points = -1, 0, 0
         self.equipment = {
-            'Броня':'Диадема лесной дриады',
+            'Броня':'-',
             'Аксессуар': '-',
             'Орудие': '-',
         }
-        self.inventory = ['Книга заклинаний', 'Плащ шамана-гоблина', 'Ягодный сок']
+        self.inventory = ['Красное яблоко']
         self.location = 'Поле'
     def get_stats(self):
         is_fit = 0
@@ -169,15 +169,11 @@ class Player:
             }
             is_fit = sum(stats.values())
         self.stats = stats
-        self.get_level()
         print("     ЭТО ТЫ\n"
               "       |\n"
               "       v\n")
         self.greet()
         self.re_stats()
-        self.name = input("- КСтаТИ, А МЫ веДЬ С ИМенЕМ еЩЕ не ОПреДЕлиЛиь... КАк НАс ЗоВУт??\n")
-        self.name = "CHARA"
-        print(f"- КрУТо! {self.name}!")
     def get_exp_bar(self):
         self.exp_bar = (self.exp // (self.exp_next//10))*'▓' + (10 - len((self.exp // (self.exp_next//10))*'▓'))*'░'
     def get_level(self):
@@ -193,7 +189,7 @@ class Player:
         self.get_exp_bar()
     def show_all(self):
         print('\n'
-            f"⠀⠀⠀⠀⠀⠀⠙⣷⠀⠀⠀⠀⠀⠀      \n"
+            f"⠀⠀⠀⠀⠀⠀⠙⣷⠀⠀⠀⠀⠀⠀      Имя: {self.name}\n"
             f"⠀⠀⠀⣤⠿⠿⠿⠿⠿⣤⠀⠀⠀⠀     Уровень: {self.level}\n"
             f"⠀ ⡟⠀⠀⠀⠀⠀⠀ ⠀⢻⠀⠀      \n"
             f"⠸⣤⠀⠀⣿⠀⠀⠀⣿⠀⠀⣤⠇⠀     {self.exp_bar} {self.exp}/{self.exp_next}\n"
@@ -214,12 +210,12 @@ class Player:
         print('')
     def greet(self):
         print(
-            f"⠀⠀⠀⠀⠀⠀⠙⣷⠀⠀⠀⠀⠀⠀  ・Очки здоровья: {self.stats['Очки здоровья']}\n"
-            f"⠀⠀⠀⣤⠿⠿⠿⠿⠿⣤⠀⠀⠀⠀ ・Урон: {self.stats['Урон']}\n"
-            f"⠀ ⡟⠀⠀⠀ ⠀⠀⠀⠀⢻⠀⠀  ・Ловкость: {self.stats['Ловкость']}\n"
-            f"⠸⣤⠀⠀⣿⠀⠀⠀⣿⠀⠀⣤⠇⠀ ・Защита: {self.stats['Защита']}\n"
-            f"⠀ ⠈⠷⢦⠀⠀⠀⡶⠾⠁⠀⠀  \n"
-            f"⠀⠀⠀⣰⠛⠋⠉⠙⠛⣆⠀⠀⠀⠀ \n"
+            f"⠀⠀⠀⠀⠀⠀⠙⣷⠀⠀⠀⠀⠀⠀  \n"
+            f"⠀⠀⠀⣤⠿⠿⠿⠿⠿⣤⠀⠀⠀⠀ \n"
+            f"⠀ ⡟⠀⠀⠀ ⠀⠀⠀⠀⢻⠀⠀  ・Очки здоровья: {self.stats['Очки здоровья']}\n"
+            f"⠸⣤⠀⠀⣿⠀⠀⠀⣿⠀⠀⣤⠇⠀ ・Урон: {self.stats['Урон']}\n"
+            f"⠀ ⠈⠷⢦⠀⠀⠀⡶⠾⠁⠀⠀  ・Ловкость: {self.stats['Ловкость']}\n"
+            f"⠀⠀⠀⣰⠛⠋⠉⠙⠛⣆⠀⠀⠀⠀ ・Защита: {self.stats['Защита']}\n"
             f"⠀⢠⡟⢰ ⠀⠀⠀ ⡆⢻⡄⠀⠀ \n"
             f"⠀⠀⠀⢸⠀⢰⠉⡆⠀⡇⠀⠀⠀⠀ \n"
             f"⠀⠀⠀⠘⠶⠟⠀⠻⠶⠃⠀⠀⠀⠀ \n"
@@ -256,6 +252,7 @@ class Player:
             self.get_stats()
         elif is_ok == '0':
             print('- МНЕ тОЖЕ ЭтИ НрАВятСЯ :D')
+            self.get_level()
     def points(self):
         for i in self.stats.keys():
             print('      дОстУпНые оЧки:', self.free_points, '\n')
@@ -338,6 +335,8 @@ class Player:
 player = Player()
 print("\n- ПРиВЕи! ДоБРо ПОжаЛоВать в МИр! КтО я? НУ... КтО-тО? БЕз ПОНЯтиЯ, КтО Я. ЗаТО ЗнАЮ, ЧТО ты - ЧеЛОвЕкоПоДОбнАя сЛИзЬ!\n")
 player.get_stats()
+player.name = input("- КСтаТИ, А МЫ веДЬ С ИМенЕМ еЩЕ не ОПреДЕлиЛиь... КАк НАс ЗоВУт??\n")
+print(f"- КрУТо! {player.name}!")
 class Creature:
     def __init__(self, kind, health=(3,10), damage = (1,10), speed=(1,10), defense=(1,5), experience=(3,6), stats_base=25, loot = ['']):
         self.level = max(randint(player.level-1,player.level+1), 0) if player.level != 0 else 0
@@ -574,6 +573,3 @@ player.show_all()
 menu(player)
 while player.stats['Очки здоровья'] != 0:
     menu(player)
-# for i in wiki_monsters:
-#     i = Creature(i, *wiki_monsters[i])
-#     i.show_stats()
